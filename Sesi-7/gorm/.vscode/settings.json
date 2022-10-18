@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "rest-api",
+      "database": "rest-api-go",
+      "username": "postgres",
+      "password": "dicky123"
+    }
+  ]
+}
