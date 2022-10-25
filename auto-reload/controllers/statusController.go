@@ -2,35 +2,23 @@ package controllers
 
 import (
 	"auto-reload/models"
-	"net/http"
-	"time"
+	"fmt"
 	"math/rand"
+	"net/http"
+	_ "time"
+
 	"github.com/gin-gonic/gin"
 )
 
-
 func GetAllStatus(ctx *gin.Context)  {
-	var waterRand int
-	var windRand int
-	for{
-		time.Sleep(15* time.Second)
-		waterRand = rand.Intn(100)
-		windRand = rand.Intn(100)
-	}
-	var newStatus models.Status = models.Status{
-		Water: waterRand,
-		Wind: windRand,
-	}
-	err := ctx.ShouldBindJSON(&newStatus)
-
-	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			"message": err.Error(),
-		})
-
-		return
+	newStatus := models.Status{
+		Water: rand.Intn(100),
+		Wind: rand.Intn(100),
 	}
 
+	fmt.Println(newStatus)
+
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, gin.H{
 		"status": newStatus,
 	})
