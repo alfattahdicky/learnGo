@@ -87,16 +87,18 @@ func UpdateOrderById(ctx *gin.Context)  {
 		return
 	}
 
-	OrderUpdate := models.Orders{}
+	OrderUpdate := models.Orders{
+		Id: uint(Id),
+	}
 	
 	ctx.ShouldBindJSON(&OrderUpdate)
 
-	err := db.Model(&OrderUpdate).Where("id = ?", Id).Updates(&OrderUpdate)
+	err := db.Model(&OrderUpdate).Where("id = ?", Id).Updates(&OrderUpdate).Error
 
 	// err := db.Exec("")
 
 	if err != nil {
-		fmt.Println("Error Updating Order By Id:", err.Error)
+		fmt.Println("Error Updating Order By Id:", err)
 
 		ctx.AbortWithStatusJSON(http.StatusNotFound, gin.H {
 			"error_status": "Data Not found",
